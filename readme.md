@@ -86,34 +86,60 @@ Aşağıda tablolar ve şemaları verilmiş.
 
    1- öğrenci tablosuna 'sehir' alanı ekleyiniz.
 
+      CEVAP: alter table `ogrenci` add column `sehir` varchar(20) not null;
+
 
    2- tablolarda veri olarak tarih geçen alanlarda veri tipini string yerine DateTime olarak ayarlayınız.
+
+      CEVAP: 
+         alter table `ogrenci` change column `dtarih` `dtarih` datetime not null;
+         alter table `islem` change column `atarih` `atarih` datetime not null;
+         alter table `islem` change column `vtarih` `vtarih` datetime not null;
 
 
    3- öğrenci tablosuna 'dogum_yeri' alanı ekleyiniz ve default değerini 'Türkiye' yapınız.
 
+      CEVAP: alter table `ogrenci` add column `dogum_yeri` varchar(50) not null default "Türkiye";
+
 
    4- öğrenci tablosundan 'puan' alanını siliniz.
+
+      CEVAP: ALTER TABLE `ogrenci` drop column puan;
 
 
    5- öğrenciler tablosundaki kiz öğrencileri alarak kiz_ogrenciler tablosu oluşturunuz.
    
+      CEVAP: create table `kiz_ogrenciler` as (
+	         select * from ogrenci where cinsiyet = 'K'
+         )
    
    6- kiz_ogrenciler tablosunu siliniz.
+
+      CEVAP: DROP TABLE kogrenciler;
 
 
    7- kiz_yurdu tablosu oluşturunuz(sadece 'ad' alanı olsun). 1 kayıt ekleyiniz.
       öğrenci tablosundaki kız öğrencileri kullanarak kiz_yurdunda_kalanlar tablosu oluşturunuz
 
+      CEVAP: CREATE TABLE kiz_yurdunda_kalanlar as (
+	      	select ogrenci_ad from ogrenci where cinsiyet = 'K' order by rand() limit 1
+         )
+
 
    8- kiz_ogrenciler tablosunun adını kogrenciler olarak değiştiriniz
+
+      CEVAP: alter table `kiz_ogrenciler` rename to `kogrenciler`; 
 
 
    9- yazar tablosundaki 'ad' alanının adını 'name' olarak güncelleyiniz.
 
+      CEVAP: alter table `yazar` rename column `yazar_adi` to `author_name`;
+
 
    10- yazar tablosuna 'ulke' ve 'universite' alanları ekleyiniz 'ulke'nin default değeri 'Türkiye' olsun.
 
+      CEVAP: alter table `yazar` add column `ulke` varchar(50) not null default 'Türkiye', 
+      add column universite varchar(100);
 
    11- tablo ilişkilerine 5'er tane örnek veriniz (1-1, 1-n, n-n)  
 
